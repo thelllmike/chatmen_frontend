@@ -1081,6 +1081,219 @@
   display: block;
 }
 
+/* ===== Loading Plan Screen ===== */
+.loadingScreen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--space-2xl);
+}
+
+.loadingPotential {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: var(--space-xl);
+}
+
+.loadingBars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.loadingBarItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.loadingBarHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.loadingBarTrack {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.loadingBarFill {
+  height: 100%;
+  background: var(--primary-500);
+  border-radius: 4px;
+  transition: width 200ms ease;
+}
+
+.loadingReviewCarousel {
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-lg);
+}
+
+/* ===== Journey Screen ===== */
+.journeyScreen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--space-2xl);
+}
+
+.journeyTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-strong);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+.journeyChart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-xl);
+}
+
+.journeySvg {
+  width: 100%;
+  height: auto;
+}
+
+.journeyLabels {
+  display: flex;
+  justify-content: space-around;
+  margin-top: var(--space-md);
+}
+
+.journeyMilestone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.milestoneBadge {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.milestoneTime {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.journeyMilestone_primary .milestoneBadge {
+  background: var(--primary-100);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-200);
+}
+
+.journeyMilestone_mid .milestoneBadge {
+  background: var(--surface-card);
+  color: var(--text-body);
+  border: 1px solid var(--border);
+}
+
+.journeyMilestone_success .milestoneBadge {
+  background: #E8F5E9;
+  color: var(--success);
+  border: 1px solid #C8E6C9;
+}
+
+/* ===== Email Screen ===== */
+.emailScreen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: var(--space-2xl);
+  text-align: center;
+}
+
+.emailIconWrap {
+  margin-bottom: var(--space-lg);
+}
+
+.emailIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--primary-600);
+}
+
+.emailInputWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border);
+  background: var(--surface-card);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  transition: border-color var(--transition-fast);
+}
+
+.emailInputWrap:focus-within {
+  border-color: var(--primary-500);
+}
+
+.emailInputIcon {
+  font-size: 18px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.emailInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  color: var(--text-strong);
+  outline: none;
+  font-family: inherit;
+}
+
+.emailInput::placeholder {
+  color: var(--text-subtle);
+}
+
+.emailPrivacy {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  text-align: left;
+  margin-bottom: auto;
+  padding: 0 var(--space-sm);
+}
+
+.emailLock {
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 480px) {
   .container {

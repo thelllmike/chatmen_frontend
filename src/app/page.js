@@ -292,6 +292,57 @@ const QUESTIONS = [
       { label: "Depends on the person" },
     ],
   },
+  {
+    id: "loading-plan",
+    type: "loading-plan",
+    skipCount: true,
+    title: "Loading your personalized plan!",
+    potentialLabel: "Your love life potential",
+    steps: [
+      { label: "Setting your goals", target: 100 },
+      { label: "Adapting key growth areas", target: 87 },
+      { label: "Selecting content", target: 100 },
+      { label: "Prioritizing challenges", target: 100 },
+    ],
+    reviews: [
+      {
+        name: "Jonathan",
+        stars: 5,
+        text: "Finally, an app that helps me understand what women want \u2014 super helpful! \ud83c\udf89\ud83d\udd0d",
+      },
+      {
+        name: "Kenneth",
+        stars: 5,
+        text: "I appreciate the daily learning goals; they keep me motivated to grow! \ud83d\udcc8\ud83d\udcaa",
+      },
+      {
+        name: "Lucas",
+        stars: 5,
+        text: "I\u2019ve never felt more confident texting. This app changed everything! \ud83d\udd25",
+      },
+    ],
+  },
+  {
+    id: "journey",
+    type: "journey",
+    skipCount: true,
+    title: "Your Journey to Dating Success with Chatmen",
+    milestones: [
+      { label: "Start using Chatmen", time: "Today", color: "primary" },
+      { label: "Go on dates", time: "In 1 week", color: "mid" },
+      { label: "Achieve your dating goals", time: "In 4 weeks", color: "success" },
+    ],
+    cta: "Get My AI Dating Assistant",
+  },
+  {
+    id: "email",
+    type: "email",
+    skipCount: true,
+    title: "Enter your email to see your results",
+    privacy:
+      "Your privacy is important to us, and we\u2019re dedicated to safeguarding your personal information. We will handle your data in accordance with our Privacy Policy.",
+    cta: "Get My AI Dating Assistant",
+  },
 ];
 
 // Count only questions that are not skipped for the step counter
@@ -711,6 +762,193 @@ function ThanksHonestScreen({ data }) {
   );
 }
 
+function LoadingPlanScreen({ data }) {
+  const [progress, setProgress] = useState(data.steps.map(() => 0));
+  const [activeReview, setActiveReview] = useState(0);
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    let stepIdx = 0;
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        const next = [...prev];
+        if (stepIdx < data.steps.length) {
+          next[stepIdx] = Math.min(
+            next[stepIdx] + Math.random() * 15 + 5,
+            data.steps[stepIdx].target
+          );
+          if (next[stepIdx] >= data.steps[stepIdx].target) {
+            next[stepIdx] = data.steps[stepIdx].target;
+            stepIdx++;
+          }
+        }
+        if (stepIdx >= data.steps.length) {
+          clearInterval(interval);
+          setDone(true);
+        }
+        return next;
+      });
+    }, 200);
+    return () => clearInterval(interval);
+  }, [data.steps]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveReview((prev) => (prev + 1) % data.reviews.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [data.reviews.length]);
+
+  return (
+    <div className={styles.loadingScreen}>
+      <h2 className={styles.question}>{data.title}</h2>
+      <p className={styles.loadingPotential}>{data.potentialLabel}</p>
+
+      <div className={styles.loadingBars}>
+        {data.steps.map((s, i) => (
+          <div key={i} className={styles.loadingBarItem}>
+            <div className={styles.loadingBarHeader}>
+              <span>{s.label}</span>
+              <span>{Math.round(progress[i])}%</span>
+            </div>
+            <div className={styles.loadingBarTrack}>
+              <div
+                className={styles.loadingBarFill}
+                style={{ width: `${progress[i]}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.loadingReviewCarousel}>
+        <div
+          className={styles.testimonialTrack}
+          style={{ transform: `translateX(-${activeReview * 100}%)` }}
+        >
+          {data.reviews.map((review, i) => (
+            <div key={i} className={styles.testimonialCard}>
+              <div className={styles.reviewHeader}>
+                <strong>{review.name}</strong>
+                <span className={styles.reviewStars}>
+                  {"★".repeat(review.stars)}{" "}
+                  <span className={styles.reviewStarNum}>{review.stars}.0</span>
+                </span>
+              </div>
+              <p className={styles.reviewText}>{review.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function JourneyScreen({ data, onCTA }) {
+  return (
+    <div className={styles.journeyScreen}>
+      <h2 className={styles.journeyTitle}>{data.title}</h2>
+
+      <div className={styles.journeyChart}>
+        <svg viewBox="0 0 400 220" className={styles.journeySvg}>
+          {/* Background area fill */}
+          <defs>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="var(--primary-200)" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="var(--success)" stopOpacity="0.2" />
+            </linearGradient>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="var(--primary-500)" />
+              <stop offset="50%" stopColor="var(--text-muted)" />
+              <stop offset="100%" stopColor="var(--success)" />
+            </linearGradient>
+          </defs>
+
+          {/* Area */}
+          <path
+            d="M40,200 C80,190 100,160 140,140 C180,120 200,110 220,105 C260,95 300,60 360,40 L360,200 Z"
+            fill="url(#areaGrad)"
+          />
+
+          {/* Line */}
+          <path
+            d="M40,200 C80,190 100,160 140,140 C180,120 200,110 220,105 C260,95 300,60 360,40"
+            fill="none"
+            stroke="url(#lineGrad)"
+            strokeWidth="3"
+          />
+
+          {/* Milestone dots */}
+          <circle cx="100" cy="160" r="6" fill="var(--primary-500)" stroke="white" strokeWidth="2" />
+          <circle cx="220" cy="105" r="6" fill="var(--text-muted)" stroke="white" strokeWidth="2" />
+          <circle cx="330" cy="50" r="6" fill="var(--success)" stroke="white" strokeWidth="2" />
+
+          {/* Vertical lines */}
+          <line x1="100" y1="160" x2="100" y2="210" stroke="var(--primary-300)" strokeWidth="1" strokeDasharray="4" />
+          <line x1="220" y1="105" x2="220" y2="210" stroke="var(--border)" strokeWidth="1" strokeDasharray="4" />
+          <line x1="330" y1="50" x2="330" y2="210" stroke="var(--success)" strokeWidth="1" strokeDasharray="4" />
+        </svg>
+
+        {/* Milestone labels */}
+        <div className={styles.journeyLabels}>
+          {data.milestones.map((m, i) => (
+            <div
+              key={i}
+              className={`${styles.journeyMilestone} ${styles[`journeyMilestone_${m.color}`]}`}
+            >
+              <div className={styles.milestoneBadge}>{m.label}</div>
+              <span className={styles.milestoneTime}>{m.time}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <button className={styles.ctaButton} onClick={onCTA}>
+        {data.cta}
+      </button>
+    </div>
+  );
+}
+
+function EmailScreen({ data, onSubmit }) {
+  const [email, setEmail] = useState("");
+  const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  return (
+    <div className={styles.emailScreen}>
+      <div className={styles.emailIconWrap}>
+        <div className={styles.emailIcon}>✉</div>
+      </div>
+
+      <h2 className={styles.question}>{data.title}</h2>
+
+      <div className={styles.emailInputWrap}>
+        <span className={styles.emailInputIcon}>✉</span>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={styles.emailInput}
+        />
+      </div>
+
+      <div className={styles.emailPrivacy}>
+        <span className={styles.emailLock}>🔒</span>
+        <p>{data.privacy}</p>
+      </div>
+
+      <button
+        className={`${styles.ctaButton} ${!isValid ? styles.ctaButtonDisabled : ""}`}
+        disabled={!isValid}
+        onClick={() => onSubmit(email)}
+      >
+        {data.cta}
+      </button>
+    </div>
+  );
+}
+
 function InfoScreen({ data }) {
   return (
     <div className={styles.infoScreen}>
@@ -795,7 +1033,8 @@ export default function Home() {
     currentQ.type === "before-after-text" ||
     currentQ.type === "testimonial" ||
     currentQ.type === "chat-compare" ||
-    currentQ.type === "thanks-honest";
+    currentQ.type === "thanks-honest" ||
+    currentQ.type === "loading-plan";
 
   const handleSelect = (index) => {
     setAnswers({ ...answers, [currentQ.id]: index });
@@ -839,21 +1078,27 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        {/* Header */}
-        <div className={styles.header}>
-          {!isFirst && (
-            <button className={styles.backButton} onClick={handleBack}>
-              ‹
-            </button>
-          )}
-          <Logo />
-          <span className={styles.stepCounter}>
-            {currentQ.skipCount ? "" : `${getDisplayStep(step)}/${TOTAL_STEPS}`}
-          </span>
-        </div>
+        {/* Header — hidden on final screens */}
+        {currentQ.type !== "loading-plan" &&
+          currentQ.type !== "journey" &&
+          currentQ.type !== "email" && (
+          <>
+            <div className={styles.header}>
+              {!isFirst && (
+                <button className={styles.backButton} onClick={handleBack}>
+                  ‹
+                </button>
+              )}
+              <Logo />
+              <span className={styles.stepCounter}>
+                {currentQ.skipCount ? "" : `${getDisplayStep(step)}/${TOTAL_STEPS}`}
+              </span>
+            </div>
 
-        {/* Progress */}
-        <ProgressBar step={getDisplayStep(step)} />
+            {/* Progress */}
+            <ProgressBar step={getDisplayStep(step)} />
+          </>
+        )}
 
         {/* Content */}
         <div className={styles.content}>
@@ -963,20 +1208,39 @@ export default function Home() {
           {currentQ.type === "thanks-honest" && (
             <ThanksHonestScreen data={currentQ} />
           )}
+
+          {currentQ.type === "loading-plan" && (
+            <LoadingPlanScreen data={currentQ} />
+          )}
+
+          {currentQ.type === "journey" && (
+            <JourneyScreen data={currentQ} onCTA={handleContinue} />
+          )}
+
+          {currentQ.type === "email" && (
+            <EmailScreen
+              data={currentQ}
+              onSubmit={(email) => {
+                console.log("Email submitted:", email);
+              }}
+            />
+          )}
         </div>
 
-        {/* CTA Button */}
-        {needsCTA && (
-          <button
-            className={`${styles.ctaButton} ${
-              isCTADisabled ? styles.ctaButtonDisabled : ""
-            }`}
-            onClick={handleContinue}
-            disabled={isCTADisabled}
-          >
-            Continue
-          </button>
-        )}
+        {/* CTA Button — journey and email have their own */}
+        {needsCTA &&
+          currentQ.type !== "journey" &&
+          currentQ.type !== "email" && (
+            <button
+              className={`${styles.ctaButton} ${
+                isCTADisabled ? styles.ctaButtonDisabled : ""
+              }`}
+              onClick={handleContinue}
+              disabled={isCTADisabled}
+            >
+              Continue
+            </button>
+          )}
       </div>
     </div>
   );
