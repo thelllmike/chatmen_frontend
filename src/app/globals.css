@@ -1,31 +1,88 @@
 :root {
-  /* Flirtist Brand Colors */
-  --primary-pink: #C2185B;
-  --primary-pink-light: #E91E63;
-  --primary-gradient: linear-gradient(135deg, #E91E63, #C2185B);
-  --cta-gradient: linear-gradient(to right, #E91E63, #EC407A);
+  /* ===== Chatmen Design System ===== */
+  /* Built around Primary #BD381D */
 
-  /* Purple palette */
-  --purple-dark: #2D1B4E;
-  --purple-medium: #3A1C5C;
-  --purple-light: #6A3D7D;
+  /* Primary Scale */
+  --primary-50:  #FEF2EF;
+  --primary-100: #FDE0D9;
+  --primary-200: #F9B8A8;
+  --primary-300: #F28E72;
+  --primary-400: #E4603F;
+  --primary-500: #BD381D;
+  --primary-600: #A02F18;
+  --primary-700: #832514;
+  --primary-800: #661C0F;
+  --primary-900: #4A130B;
 
-  /* Lavender / card backgrounds */
-  --lavender-bg: #F5F0FA;
-  --lavender-card: #EDE7F3;
-  --lavender-hover: #E4DCF0;
+  /* Secondary Accent — warm amber/gold */
+  --secondary-50:  #FFF8ED;
+  --secondary-100: #FEECD0;
+  --secondary-200: #FDD89F;
+  --secondary-300: #FBBF6A;
+  --secondary-400: #F5A623;
+  --secondary-500: #D4901A;
+  --secondary-600: #B37916;
+  --secondary-700: #8C5F11;
+  --secondary-800: #66450D;
+  --secondary-900: #402B08;
 
-  /* Neutrals */
-  --bg-white: #FAFAFE;
-  --white: #FFFFFF;
-  --gray-light: #E0D5E8;
-  --gray-medium: #9E8FB0;
-  --text-body: #4A3D5C;
+  /* Semantic */
+  --success: #3D8B5E;
+  --warning: #D4901A;
+  --error:   #C0392B;
 
-  /* Progress bar */
-  --progress-active: #3A1C5C;
-  --progress-inactive: #E0D5E8;
-  --progress-dot: #C4B5D4;
+  /* Surfaces & Backgrounds */
+  --bg:              #FFFAF7;
+  --surface:         #FFFFFF;
+  --surface-elevated:#FFFDFB;
+  --surface-card:    #FDF5F0;
+  --surface-card-hover: #FAF0E9;
+  --surface-card-active: #F5E8DE;
+
+  /* Text */
+  --text-strong:   #2C1810;
+  --text-body:     #4A3328;
+  --text-muted:    #8B7468;
+  --text-subtle:   #B09A8E;
+
+  /* Borders */
+  --border:        #E8DDD6;
+  --border-light:  #F0E8E2;
+  --border-strong: #D4C4B8;
+
+  /* Disabled */
+  --disabled-bg:   #F0EBE7;
+  --disabled-text: #B8A99E;
+
+  /* Progress */
+  --progress-active:   #BD381D;
+  --progress-inactive: #E8DDD6;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(44, 24, 16, 0.06);
+  --shadow-md: 0 4px 12px rgba(44, 24, 16, 0.08);
+  --shadow-lg: 0 8px 24px rgba(44, 24, 16, 0.10);
+  --shadow-card: 0 2px 8px rgba(44, 24, 16, 0.05);
+  --shadow-card-hover: 0 6px 20px rgba(44, 24, 16, 0.10);
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Radius — sharp / minimal */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
 }
 
 html,
@@ -35,11 +92,12 @@ body {
 }
 
 body {
-  color: var(--purple-dark);
-  background: var(--bg-white);
-  font-family: 'Geist', Arial, Helvetica, sans-serif;
+  color: var(--text-body);
+  background: var(--bg);
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
 * {
@@ -51,4 +109,9 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+::selection {
+  background: var(--primary-100);
+  color: var(--primary-800);
 }
