@@ -145,8 +145,9 @@ const QUESTIONS = [
     ],
   },
   {
-    id: 15,
+    id: "testimonial-1",
     type: "testimonial",
+    skipCount: true,
     title: "Dating can be a challenge, but we are here to support you",
     stat: "Our plans have helped 150,000 men improve their love life",
     reviews: [
@@ -168,7 +169,7 @@ const QUESTIONS = [
     ],
   },
   {
-    id: 16,
+    id: 15,
     type: "option-list-icon",
     question: "Can you easily read between the lines when she texts?",
     options: [
@@ -266,8 +267,18 @@ const QUESTIONS = [
   },
 ];
 
-const TOTAL_STEPS = QUESTIONS.length;
+// Count only questions that are not skipped for the step counter
+const COUNTED_QUESTIONS = QUESTIONS.filter((q) => !q.skipCount);
+const TOTAL_STEPS = COUNTED_QUESTIONS.length;
 const PROGRESS_SECTIONS = 5;
+
+function getDisplayStep(stepIndex) {
+  let count = 0;
+  for (let i = 0; i <= stepIndex; i++) {
+    if (!QUESTIONS[i].skipCount) count++;
+  }
+  return count;
+}
 
 const LIKERT_OPTIONS = [
   { icon: "👎", size: "lg", label: "Completely disagree" },
@@ -287,8 +298,8 @@ function Logo() {
       <Image
         src="/images/logo.png"
         alt="Chatmen"
-        width={32}
-        height={32}
+        width={44}
+        height={44}
         className={styles.logoImg}
       />
       <span className={styles.logoText}>
@@ -740,12 +751,12 @@ export default function Home() {
           )}
           <Logo />
           <span className={styles.stepCounter}>
-            {step + 1}/{TOTAL_STEPS}
+            {currentQ.skipCount ? "" : `${getDisplayStep(step)}/${TOTAL_STEPS}`}
           </span>
         </div>
 
         {/* Progress */}
-        <ProgressBar step={step + 1} />
+        <ProgressBar step={getDisplayStep(step)} />
 
         {/* Content */}
         <div className={styles.content}>
