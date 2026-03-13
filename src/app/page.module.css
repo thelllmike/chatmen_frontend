@@ -75,7 +75,7 @@
 }
 
 .logoImg {
-  height: 40px;
+  height: 56px;
   width: auto;
   object-fit: contain;
 }
@@ -942,6 +942,143 @@
   color: var(--text-body);
   line-height: 1.5;
   font-weight: 500;
+}
+
+/* ===== Chat Compare (Sorry screen) ===== */
+.chatCompareScreen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatCompare {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: var(--space-2xl);
+  justify-content: center;
+}
+
+.chatCol {
+  flex: 1;
+  max-width: 180px;
+}
+
+.chatArrow {
+  font-size: 24px;
+  color: var(--text-muted);
+  margin-top: 48px;
+  flex-shrink: 0;
+}
+
+.chatBubbleBefore {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-top: var(--space-sm);
+  position: relative;
+}
+
+.chatBubbleAfter {
+  background: var(--primary-700);
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-top: var(--space-sm);
+  position: relative;
+}
+
+.chatMsg {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.chatSeen {
+  display: block;
+  font-size: 11px;
+  color: var(--text-subtle);
+  margin-top: 6px;
+  text-align: right;
+}
+
+.chatReaction {
+  position: absolute;
+  bottom: -12px;
+  left: -4px;
+  font-size: 18px;
+  background: var(--surface);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===== Thanks / Honest Screen ===== */
+.thanksScreen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  padding-left: var(--space-sm);
+}
+
+.timelineItem {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.timelineDotLine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.timelineDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.timelineLine {
+  width: 2px;
+  height: 32px;
+  background: var(--primary-200);
+}
+
+.timelineText {
+  font-size: 15px;
+  color: var(--text-body);
+  line-height: 1.5;
+  padding-bottom: var(--space-md);
+}
+
+.thanksHero {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.thanksImg {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
 }
 
 /* ===== Responsive ===== */

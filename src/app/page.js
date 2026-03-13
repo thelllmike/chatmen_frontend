@@ -201,6 +201,20 @@ const QUESTIONS = [
     subtitle: "How well does the statement above describe you?",
   },
   {
+    id: "chat-compare",
+    type: "chat-compare",
+    skipCount: true,
+    title: "We\u2019re really sorry to hear that!",
+    subtitle:
+      "But don\u2019t worry, by the end of this journey, your dating life will be exciting and fulfilling.",
+    before: { message: "Good morning!", seen: "Seen 2 hours ago" },
+    after: {
+      message:
+        "How would you have liked me to wake you up this morning?",
+      reacted: true,
+    },
+  },
+  {
     id: 20,
     type: "slider",
     question: "How confident are you when approaching someone new?",
@@ -219,6 +233,19 @@ const QUESTIONS = [
       { label: "Starting conversations", icon: "💬" },
       { label: "Keeping interest alive", icon: "🔥" },
       { label: "Moving to a real date", icon: "📅" },
+    ],
+  },
+  {
+    id: "thanks-honest",
+    type: "thanks-honest",
+    skipCount: true,
+    title: "Thanks for being honest!",
+    subtitle:
+      "We know opening up isn\u2019t always easy, but the results will be worth it. Just a few more questions and your perfect plan will be ready!",
+    bullets: [
+      "Skip the small talk and dive into conversations",
+      "Achieve your dating goals in no time",
+      "Always know what to say to any woman",
     ],
   },
   {
@@ -298,8 +325,8 @@ function Logo() {
       <Image
         src="/images/logo.png"
         alt="Chatmen"
-        width={44}
-        height={44}
+        width={64}
+        height={64}
         className={styles.logoImg}
       />
       <span className={styles.logoText}>
@@ -616,6 +643,74 @@ function TestimonialScreen({ data }) {
   );
 }
 
+function ChatCompareScreen({ data }) {
+  return (
+    <div className={styles.chatCompareScreen}>
+      <h2 className={styles.question}>{data.title}</h2>
+      <p className={styles.subtitle}>{data.subtitle}</p>
+
+      <div className={styles.chatCompare}>
+        <div className={styles.chatCol}>
+          <div className={`${styles.beforeAfterLabel} ${styles.labelBefore}`}>
+            Before ✗
+          </div>
+          <div className={styles.chatBubbleBefore}>
+            <p className={styles.chatMsg}>{data.before.message}</p>
+            <span className={styles.chatSeen}>{data.before.seen}</span>
+          </div>
+        </div>
+
+        <div className={styles.chatArrow}>→</div>
+
+        <div className={styles.chatCol}>
+          <div className={`${styles.beforeAfterLabel} ${styles.labelAfter}`}>
+            After ✓
+          </div>
+          <div className={styles.chatBubbleAfter}>
+            <p className={styles.chatMsg}>{data.after.message}</p>
+            {data.after.reacted && (
+              <span className={styles.chatReaction}>❤️</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ThanksHonestScreen({ data }) {
+  return (
+    <div className={styles.thanksScreen}>
+      <h2 className={styles.question}>{data.title}</h2>
+      <p className={styles.subtitle}>{data.subtitle}</p>
+
+      <div className={styles.timeline}>
+        {data.bullets.map((item, i) => (
+          <div key={i} className={styles.timelineItem}>
+            <div className={styles.timelineDotLine}>
+              <div className={styles.timelineDot} />
+              {i < data.bullets.length - 1 && (
+                <div className={styles.timelineLine} />
+              )}
+            </div>
+            <p className={styles.timelineText}>{item}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.thanksHero}>
+        <Image
+          src="/images/casual.webp"
+          alt="Support"
+          width={400}
+          height={280}
+          className={styles.thanksImg}
+        />
+      </div>
+    </div>
+  );
+}
+
 function InfoScreen({ data }) {
   return (
     <div className={styles.infoScreen}>
@@ -698,7 +793,9 @@ export default function Home() {
     currentQ.type === "goal-summary" ||
     currentQ.type === "slider" ||
     currentQ.type === "before-after-text" ||
-    currentQ.type === "testimonial";
+    currentQ.type === "testimonial" ||
+    currentQ.type === "chat-compare" ||
+    currentQ.type === "thanks-honest";
 
   const handleSelect = (index) => {
     setAnswers({ ...answers, [currentQ.id]: index });
@@ -857,6 +954,14 @@ export default function Home() {
 
           {currentQ.type === "testimonial" && (
             <TestimonialScreen data={currentQ} />
+          )}
+
+          {currentQ.type === "chat-compare" && (
+            <ChatCompareScreen data={currentQ} />
+          )}
+
+          {currentQ.type === "thanks-honest" && (
+            <ThanksHonestScreen data={currentQ} />
           )}
         </div>
 
