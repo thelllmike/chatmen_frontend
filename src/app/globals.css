@@ -1,13 +1,31 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Flirtist Brand Colors */
+  --primary-pink: #C2185B;
+  --primary-pink-light: #E91E63;
+  --primary-gradient: linear-gradient(135deg, #E91E63, #C2185B);
+  --cta-gradient: linear-gradient(to right, #E91E63, #EC407A);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Purple palette */
+  --purple-dark: #2D1B4E;
+  --purple-medium: #3A1C5C;
+  --purple-light: #6A3D7D;
+
+  /* Lavender / card backgrounds */
+  --lavender-bg: #F5F0FA;
+  --lavender-card: #EDE7F3;
+  --lavender-hover: #E4DCF0;
+
+  /* Neutrals */
+  --bg-white: #FAFAFE;
+  --white: #FFFFFF;
+  --gray-light: #E0D5E8;
+  --gray-medium: #9E8FB0;
+  --text-body: #4A3D5C;
+
+  /* Progress bar */
+  --progress-active: #3A1C5C;
+  --progress-inactive: #E0D5E8;
+  --progress-dot: #C4B5D4;
 }
 
 html,
@@ -17,9 +35,9 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--purple-dark);
+  background: var(--bg-white);
+  font-family: 'Geist', Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -33,10 +51,4 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
