@@ -343,6 +343,48 @@ const QUESTIONS = [
       "Your privacy is important to us, and we\u2019re dedicated to safeguarding your personal information. We will handle your data in accordance with our Privacy Policy.",
     cta: "Get My AI Dating Assistant",
   },
+  {
+    id: "dating-type",
+    type: "dating-type",
+    skipCount: true,
+    title: "Your dating type",
+    typeName: "Soft Opener",
+    typeIcon: "😊",
+    description:
+      "Your initial messages are often polite and low-pressure, which keeps things friendly and avoids awkwardness. This approach is great for maintaining a relaxed and non-threatening vibe when reaching out to someone new. However, the downside is that these openers may lack the spark or specificity needed to stand out in a crowded inbox, making it easier for your message to be overlooked.",
+    statLabel: "You are not alone",
+    statNumber: "~10,000",
+    statDesc: "Chatmen users share this type",
+    bottomTitle: "Ready to figure out how good your\ntexting skills are?",
+    bottomSubtitle: "Get personalized feedback on your rizz.",
+    cta: "Start Challenge",
+  },
+  {
+    id: "challenge",
+    type: "challenge",
+    skipCount: true,
+    title: "How would you open?",
+    challengeNum: "1 of 2",
+    profile: {
+      name: "Morgan",
+      status: "Active today",
+      pronouns: "she/her/hers",
+      verified: true,
+      prompt: "My simple pleasures",
+      answer: "Post beach naps, sunset hikes, and clinking glasses",
+      img: "/images/committed.webp",
+    },
+    skipText: "I don't know what to say",
+  },
+  {
+    id: "analyzing",
+    type: "analyzing",
+    skipCount: true,
+    title: "How would you open?",
+    challengeNum: "1 of 2",
+    profileImg: "/images/committed.webp",
+    loadingText: "Analyzing your message...",
+  },
 ];
 
 // Count only questions that are not skipped for the step counter
@@ -949,6 +991,153 @@ function EmailScreen({ data, onSubmit }) {
   );
 }
 
+function DatingTypeScreen({ data, onCTA }) {
+  return (
+    <div className={styles.datingTypeScreen}>
+      <h2 className={styles.datingTypeTitle}>
+        Your <span className={styles.highlight}>dating</span> type
+      </h2>
+
+      <div className={styles.datingTypeCard}>
+        <div className={styles.datingTypeHeader}>
+          <div className={styles.datingTypeIcon}>{data.typeIcon}</div>
+          <div>
+            <div className={styles.datingTypeLabel}>Your Dating Type</div>
+            <div className={styles.datingTypeName}>{data.typeName}</div>
+          </div>
+        </div>
+        <p className={styles.datingTypeDesc}>{data.description}</p>
+        <div className={styles.datingTypeDivider} />
+        <div className={styles.datingTypeStat}>
+          <span className={styles.datingTypeStatLabel}>{data.statLabel}</span>
+          <span className={styles.datingTypeStatNum}>{data.statNumber}</span>
+          <span className={styles.datingTypeStatDesc}>{data.statDesc}</span>
+        </div>
+      </div>
+
+      <div className={styles.datingTypeBottom}>
+        <p className={styles.datingTypeBottomTitle}>
+          Ready to figure out how good your{" "}
+          <span className={styles.highlight}>texting skills</span> are?
+        </p>
+        <p className={styles.datingTypeBottomSub}>
+          Get personalized <span className={styles.highlight}>feedback</span> on
+          your <span className={styles.highlight}>rizz</span>.
+        </p>
+      </div>
+
+      <button className={styles.ctaButton} onClick={onCTA}>
+        {data.cta}
+      </button>
+    </div>
+  );
+}
+
+function ChallengeScreen({ data, onSubmit, onSkip }) {
+  const [message, setMessage] = useState("");
+
+  return (
+    <div className={styles.challengeScreen}>
+      <h2 className={styles.challengeTitle}>
+        How would you <span className={styles.highlight}>open?</span>
+      </h2>
+      <p className={styles.challengeSub}>Challenge {data.challengeNum}</p>
+
+      <div className={styles.phoneMockup}>
+        <div className={styles.phoneStatusBar}>
+          <span>9:41</span>
+          <span className={styles.phoneNotch} />
+          <span>📶</span>
+        </div>
+        <div className={styles.profileHeader}>
+          <div>
+            <strong className={styles.profileName}>{data.profile.name}</strong>
+            <span className={styles.profileStatus}>
+              {" "}
+              · {data.profile.status}
+            </span>
+          </div>
+        </div>
+        <div className={styles.profilePronoun}>
+          {data.profile.pronouns} · ✓ Verified
+        </div>
+        <div className={styles.profileImgWrap}>
+          <Image
+            src={data.profile.img}
+            alt={data.profile.name}
+            width={300}
+            height={300}
+            className={styles.profileImg}
+          />
+        </div>
+        <div className={styles.profilePrompt}>
+          <span className={styles.promptLabel}>{data.profile.prompt}</span>
+          <p className={styles.promptAnswer}>{data.profile.answer}</p>
+        </div>
+      </div>
+
+      <div className={styles.challengeInputWrap}>
+        <span className={styles.challengeInputIcon}>💬</span>
+        <input
+          type="text"
+          placeholder="Type here..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className={styles.challengeInput}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && message.trim()) onSubmit(message);
+          }}
+        />
+        <button
+          className={styles.challengeSendBtn}
+          onClick={() => message.trim() && onSubmit(message)}
+          disabled={!message.trim()}
+        >
+          ↑
+        </button>
+      </div>
+      <button className={styles.challengeSkip} onClick={onSkip}>
+        {data.skipText}
+      </button>
+    </div>
+  );
+}
+
+function AnalyzingScreen({ data }) {
+  return (
+    <div className={styles.analyzingScreen}>
+      <h2 className={styles.challengeTitle}>
+        How would you <span className={styles.highlight}>open?</span>
+      </h2>
+      <p className={styles.challengeSub}>Challenge {data.challengeNum}</p>
+
+      <div className={styles.analyzingCenter}>
+        <div className={styles.analyzingGlow}>
+          <div className={styles.analyzingRing3} />
+          <div className={styles.analyzingRing2} />
+          <div className={styles.analyzingRing1} />
+          <div className={styles.analyzingPhoto}>
+            <Image
+              src={data.profileImg}
+              alt="Profile"
+              width={160}
+              height={160}
+              className={styles.analyzingImg}
+            />
+          </div>
+          <div className={styles.analyzingSparkle}>✦</div>
+        </div>
+      </div>
+
+      <div className={styles.analyzingBottom}>
+        <div className={styles.analyzingBubbleIcon}>💬</div>
+        <p className={styles.analyzingText}>{data.loadingText}</p>
+        <div className={styles.analyzingSpinner}>✳</div>
+      </div>
+    </div>
+  );
+}
+
 function InfoScreen({ data }) {
   return (
     <div className={styles.infoScreen}>
@@ -1081,7 +1270,10 @@ export default function Home() {
         {/* Header — hidden on final screens */}
         {currentQ.type !== "loading-plan" &&
           currentQ.type !== "journey" &&
-          currentQ.type !== "email" && (
+          currentQ.type !== "email" &&
+          currentQ.type !== "dating-type" &&
+          currentQ.type !== "challenge" &&
+          currentQ.type !== "analyzing" && (
           <>
             <div className={styles.header}>
               {!isFirst && (
@@ -1222,8 +1414,28 @@ export default function Home() {
               data={currentQ}
               onSubmit={(email) => {
                 console.log("Email submitted:", email);
+                handleContinue();
               }}
             />
+          )}
+
+          {currentQ.type === "dating-type" && (
+            <DatingTypeScreen data={currentQ} onCTA={handleContinue} />
+          )}
+
+          {currentQ.type === "challenge" && (
+            <ChallengeScreen
+              data={currentQ}
+              onSubmit={(msg) => {
+                setAnswers({ ...answers, challenge_msg: msg });
+                handleContinue();
+              }}
+              onSkip={handleContinue}
+            />
+          )}
+
+          {currentQ.type === "analyzing" && (
+            <AnalyzingScreen data={currentQ} />
           )}
         </div>
 
