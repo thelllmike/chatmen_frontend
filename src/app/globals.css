@@ -58,12 +58,12 @@
   --progress-active:   #BD381D;
   --progress-inactive: #E8DDD6;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(44, 24, 16, 0.06);
-  --shadow-md: 0 4px 12px rgba(44, 24, 16, 0.08);
-  --shadow-lg: 0 8px 24px rgba(44, 24, 16, 0.10);
-  --shadow-card: 0 2px 8px rgba(44, 24, 16, 0.05);
-  --shadow-card-hover: 0 6px 20px rgba(44, 24, 16, 0.10);
+  /* Shadows — soft modern */
+  --shadow-sm: 0 1px 4px rgba(44, 24, 16, 0.04);
+  --shadow-md: 0 4px 16px rgba(44, 24, 16, 0.06);
+  --shadow-lg: 0 8px 32px rgba(44, 24, 16, 0.08);
+  --shadow-card: 0 2px 12px rgba(44, 24, 16, 0.04);
+  --shadow-card-hover: 0 8px 28px rgba(44, 24, 16, 0.08);
 
   /* Spacing */
   --space-xs: 4px;
@@ -73,11 +73,12 @@
   --space-xl: 32px;
   --space-2xl: 48px;
 
-  /* Radius — sharp / minimal */
+  /* Radius — modern soft */
   --radius-none: 0px;
-  --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
 
   /* Transitions */
   --transition-fast: 150ms ease;

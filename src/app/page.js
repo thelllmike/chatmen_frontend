@@ -3,6 +3,21 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  StarIcon,
+  UserIcon,
+  LockIcon,
+  BubbleChatIcon,
+  CrownIcon,
+  StarsIcon,
+  FavouriteIcon,
+  CheckListIcon,
+  SecurityCheckIcon,
+  CreditCardIcon,
+  MailOpenIcon,
+  ClockCheckIcon,
+} from "@hugeicons/core-free-icons";
 
 const QUESTIONS = [
   {
@@ -385,9 +400,6 @@ function Logo() {
         height={64}
         className={styles.logoImg}
       />
-      <span className={styles.logoText}>
-        <span className={styles.logoTextBrand}>Chatmen</span>
-      </span>
     </div>
   );
 }
@@ -922,13 +934,17 @@ function EmailScreen({ data, onSubmit }) {
   return (
     <div className={styles.emailScreen}>
       <div className={styles.emailIconWrap}>
-        <div className={styles.emailIcon}>✉</div>
+        <div className={styles.emailIcon}>
+          <HugeiconsIcon icon={MailOpenIcon} size={28} color="var(--primary-600)" />
+        </div>
       </div>
 
       <h2 className={styles.question}>{data.title}</h2>
 
       <div className={styles.emailInputWrap}>
-        <span className={styles.emailInputIcon}>✉</span>
+        <span className={styles.emailInputIcon}>
+          <HugeiconsIcon icon={MailOpenIcon} size={18} color="var(--text-muted)" />
+        </span>
         <input
           type="email"
           placeholder="Email"
@@ -939,7 +955,9 @@ function EmailScreen({ data, onSubmit }) {
       </div>
 
       <div className={styles.emailPrivacy}>
-        <span className={styles.emailLock}>🔒</span>
+        <span className={styles.emailLock}>
+          <HugeiconsIcon icon={LockIcon} size={14} color="var(--text-muted)" />
+        </span>
         <p>{data.privacy}</p>
       </div>
 
@@ -1100,7 +1118,8 @@ function SubscriptionPage({ answers, questions }) {
       <button className={styles.ctaButton}>Get my personal Dating Assistant</button>
 
       <div className={styles.paySecure}>
-        <span>✓ Pay safe &amp; secure</span>
+        <HugeiconsIcon icon={SecurityCheckIcon} size={16} />
+        <span>Pay safe &amp; secure</span>
       </div>
       <div className={styles.cardLogos}>
         <span className={styles.cardLogo}>VISA</span>
@@ -1129,9 +1148,6 @@ function SubscriptionPage({ answers, questions }) {
           height={44}
           style={{ objectFit: "contain" }}
         />
-        <span className={styles.logoText}>
-          Chat<span className={styles.logoTextBrand}>men</span>
-        </span>
       </div>
 
       {/* Now vs After comparison */}
@@ -1190,21 +1206,27 @@ function SubscriptionPage({ answers, questions }) {
         <span className={styles.aiBadge}>AI generated</span>
         <div className={styles.aiGrid}>
           <div className={styles.aiGridItem}>
-            <span className={styles.aiGridIcon}>🎯</span>
+            <span className={styles.aiGridIcon}>
+              <HugeiconsIcon icon={StarIcon} size={22} color="var(--primary-500)" />
+            </span>
             <div>
               <span className={styles.aiGridLabel}>Main goal</span>
               <strong>{goalLabel}</strong>
             </div>
           </div>
           <div className={styles.aiGridItem}>
-            <span className={styles.aiGridIcon}>🕐</span>
+            <span className={styles.aiGridIcon}>
+              <HugeiconsIcon icon={ClockCheckIcon} size={22} color="var(--primary-500)" />
+            </span>
             <div>
               <span className={styles.aiGridLabel}>Daily learning</span>
               <strong>&lt; 5 minutes/day</strong>
             </div>
           </div>
           <div className={styles.aiGridItem}>
-            <span className={styles.aiGridIcon}>🏆</span>
+            <span className={styles.aiGridIcon}>
+              <HugeiconsIcon icon={CrownIcon} size={22} color="var(--primary-500)" />
+            </span>
             <div>
               <span className={styles.aiGridLabel}>Desired skills</span>
               <strong>
@@ -1215,7 +1237,9 @@ function SubscriptionPage({ answers, questions }) {
             </div>
           </div>
           <div className={styles.aiGridItem}>
-            <span className={styles.aiGridIcon}>👤</span>
+            <span className={styles.aiGridIcon}>
+              <HugeiconsIcon icon={UserIcon} size={22} color="var(--primary-500)" />
+            </span>
             <div>
               <span className={styles.aiGridLabel}>Your personality</span>
               <strong>Extroverted</strong>
@@ -1238,7 +1262,9 @@ function SubscriptionPage({ answers, questions }) {
       <div className={styles.featureList}>
         {features.map((f, i) => (
           <div key={i} className={styles.featureItem}>
-            <span className={styles.featureCheck}>✓</span>
+            <span className={styles.featureCheck}>
+              <HugeiconsIcon icon={CheckListIcon} size={20} color="var(--success)" />
+            </span>
             <span>{f}</span>
           </div>
         ))}
