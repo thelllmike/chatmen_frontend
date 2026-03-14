@@ -393,11 +393,10 @@ const LIKERT_OPTIONS = [
 function Logo() {
   return (
     <div className={styles.logo}>
-      <Image
-        src="/images/logo.png"
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/logo.svg"
         alt="Chatmen"
-        width={64}
-        height={64}
         className={styles.logoImg}
       />
     </div>
@@ -1141,12 +1140,11 @@ function SubscriptionPage({ answers, questions }) {
     <div className={styles.subPage}>
       {/* Logo */}
       <div className={styles.subLogo}>
-        <Image
-          src="/images/logo.png"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/logo.svg"
           alt="Chatmen"
-          width={44}
-          height={44}
-          style={{ objectFit: "contain" }}
+          className={styles.logoImg}
         />
       </div>
 
