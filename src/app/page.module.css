@@ -228,14 +228,14 @@
   right: 8px;
   width: 32px;
   height: 32px;
-  background: var(--primary-500);
+  background: white;
   border-radius: var(--radius-xs);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--text-strong);
   font-size: 14px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
 .imageCardLabel {
