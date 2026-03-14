@@ -233,12 +233,12 @@
   right: 8px;
   width: 32px;
   height: 32px;
-  background: white;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: var(--radius-xs);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-strong);
+  color: white;
   font-size: 14px;
   box-shadow: var(--shadow-md);
 }
