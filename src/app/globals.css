@@ -3,9 +3,9 @@
   /* Built around Primary #BD381D */
 
   /* Primary Scale */
-  --primary-50:  #FEF2EF;
-  --primary-100: #FDE0D9;
-  --primary-200: #F9B8A8;
+  --primary-50:  rgba(189, 56, 29, 0.12);
+  --primary-100: rgba(189, 56, 29, 0.22);
+  --primary-200: rgba(189, 56, 29, 0.35);
   --primary-300: #F28E72;
   --primary-400: #E4603F;
   --primary-500: #BD381D;
@@ -15,9 +15,9 @@
   --primary-900: #4A130B;
 
   /* Secondary Accent — warm amber/gold */
-  --secondary-50:  #FFF8ED;
-  --secondary-100: #FEECD0;
-  --secondary-200: #FDD89F;
+  --secondary-50:  rgba(212, 144, 26, 0.10);
+  --secondary-100: rgba(212, 144, 26, 0.20);
+  --secondary-200: rgba(212, 144, 26, 0.32);
   --secondary-300: #FBBF6A;
   --secondary-400: #F5A623;
   --secondary-500: #D4901A;

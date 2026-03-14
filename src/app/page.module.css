@@ -14,7 +14,7 @@
 
 .container {
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
   min-height: 100vh;
   background: var(--surface);
   display: flex;
@@ -1201,7 +1201,7 @@
 
 .journeyMilestone_primary .milestoneBadge {
   background: var(--primary-100);
-  color: var(--primary-700);
+  color: var(--primary-400);
 }
 
 .journeyMilestone_mid .milestoneBadge {
@@ -1238,7 +1238,7 @@
   align-items: center;
   justify-content: center;
   font-size: 28px;
-  color: var(--primary-600);
+  color: var(--primary-400);
 }
 
 .emailInputWrap {
@@ -1855,7 +1855,7 @@
   height: 44px;
   border-radius: 50%;
   background: var(--primary-100);
-  color: var(--primary-700);
+  color: var(--primary-400);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1953,7 +1953,7 @@
 }
 
 /* ===== Responsive ===== */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .container {
     padding: 0 var(--space-md);
     border: none;
