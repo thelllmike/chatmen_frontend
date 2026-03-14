@@ -344,46 +344,9 @@ const QUESTIONS = [
     cta: "Get My AI Dating Assistant",
   },
   {
-    id: "dating-type",
-    type: "dating-type",
+    id: "subscription",
+    type: "subscription",
     skipCount: true,
-    title: "Your dating type",
-    typeName: "Soft Opener",
-    typeIcon: "😊",
-    description:
-      "Your initial messages are often polite and low-pressure, which keeps things friendly and avoids awkwardness. This approach is great for maintaining a relaxed and non-threatening vibe when reaching out to someone new. However, the downside is that these openers may lack the spark or specificity needed to stand out in a crowded inbox, making it easier for your message to be overlooked.",
-    statLabel: "You are not alone",
-    statNumber: "~10,000",
-    statDesc: "Chatmen users share this type",
-    bottomTitle: "Ready to figure out how good your\ntexting skills are?",
-    bottomSubtitle: "Get personalized feedback on your rizz.",
-    cta: "Start Challenge",
-  },
-  {
-    id: "challenge",
-    type: "challenge",
-    skipCount: true,
-    title: "How would you open?",
-    challengeNum: "1 of 2",
-    profile: {
-      name: "Morgan",
-      status: "Active today",
-      pronouns: "she/her/hers",
-      verified: true,
-      prompt: "My simple pleasures",
-      answer: "Post beach naps, sunset hikes, and clinking glasses",
-      img: "/images/committed.webp",
-    },
-    skipText: "I don't know what to say",
-  },
-  {
-    id: "analyzing",
-    type: "analyzing",
-    skipCount: true,
-    title: "How would you open?",
-    challengeNum: "1 of 2",
-    profileImg: "/images/committed.webp",
-    loadingText: "Analyzing your message...",
   },
 ];
 
@@ -991,149 +954,377 @@ function EmailScreen({ data, onSubmit }) {
   );
 }
 
-function DatingTypeScreen({ data, onCTA }) {
-  return (
-    <div className={styles.datingTypeScreen}>
-      <h2 className={styles.datingTypeTitle}>
-        Your <span className={styles.highlight}>dating</span> type
+function SubscriptionPage({ answers, questions }) {
+  const [selectedPlan, setSelectedPlan] = useState("monthly");
+  const [countdown, setCountdown] = useState({ min: 6, sec: 21 });
+  const [openFaq, setOpenFaq] = useState(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev.min === 0 && prev.sec === 0) return prev;
+        if (prev.sec === 0) return { min: prev.min - 1, sec: 59 };
+        return { ...prev, sec: prev.sec - 1 };
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goalQ = questions.find((q) => q.id === 1);
+  const goalAnswer = answers[1];
+  const goalLabel =
+    goalAnswer !== undefined ? goalQ.options[goalAnswer].label : "Casual dating and fun";
+
+  const plans = [
+    {
+      id: "weekly",
+      name: "7 - day plan",
+      oldTotal: "USD 43.47",
+      newTotal: "USD 10.50",
+      oldDaily: "USD 6.21",
+      newDaily: "USD 1.50",
+      perDay: "per day",
+    },
+    {
+      id: "monthly",
+      name: "1 - month plan",
+      oldTotal: "USD 43.47",
+      newTotal: "USD 19.99",
+      oldDaily: "USD 1.40",
+      newDaily: "USD 0.64",
+      perDay: "per day",
+      popular: true,
+    },
+    {
+      id: "quarterly",
+      name: "3 - month plan",
+      oldTotal: "USD 86.95",
+      newTotal: "USD 34.99",
+      oldDaily: "USD 0.93",
+      newDaily: "USD 0.38",
+      perDay: "per day",
+    },
+  ];
+
+  const features = [
+    "Generate Custom Charming Conversation Starters And Icebreakers",
+    "Personalized Reply Suggestions",
+    "Stand Out with our Bio Generator",
+    "Prompts For Approaching In Real Life",
+    "Access to New Features",
+  ];
+
+  const howItWorks = [
+    { step: 1, text: "Upload a screenshot" },
+    { step: 2, text: "Choose your goal" },
+    { step: 3, text: "Charm her with smart replies and openers carefully crafted by AI." },
+  ];
+
+  const faqs = [
+    {
+      q: "Can I cancel my subscription?",
+      a: "Yes, you can cancel your subscription at any time by contacting our support team via email.",
+    },
+    {
+      q: "How does Chatmen work?",
+      a: "Chatmen uses AI to analyze dating profiles and conversations, providing personalized openers, replies, and conversation tips.",
+    },
+    {
+      q: "Is Chatmen only for casual hookups?",
+      a: "No! Chatmen helps with all types of dating goals — from serious relationships to casual connections and making new friends.",
+    },
+    {
+      q: "Can't I just use my own brain to talk to women?",
+      a: "Of course! Chatmen is a tool to enhance your natural communication skills, not replace them. Think of it as a dating coach in your pocket.",
+    },
+  ];
+
+  const PricingSection = () => (
+    <>
+      <h2 className={styles.subHeading}>
+        Text Like a Flirt God with your personal AI dating assistant
       </h2>
 
-      <div className={styles.datingTypeCard}>
-        <div className={styles.datingTypeHeader}>
-          <div className={styles.datingTypeIcon}>{data.typeIcon}</div>
-          <div>
-            <div className={styles.datingTypeLabel}>Your Dating Type</div>
-            <div className={styles.datingTypeName}>{data.typeName}</div>
+      <div className={styles.timerBanner}>
+        <span>This offer ends in</span>
+        <div className={styles.timerDigits}>
+          <span className={styles.timerBox}>
+            {String(countdown.min).padStart(2, "0")}
+            <small>min</small>
+          </span>
+          <span className={styles.timerColon}>:</span>
+          <span className={styles.timerBox}>
+            {String(countdown.sec).padStart(2, "0")}
+            <small>sec</small>
+          </span>
+        </div>
+      </div>
+
+      <div className={styles.planList}>
+        {plans.map((plan) => (
+          <div
+            key={plan.id}
+            className={`${styles.planCard} ${
+              selectedPlan === plan.id ? styles.planCardSelected : ""
+            } ${plan.popular ? styles.planCardPopular : ""}`}
+            onClick={() => setSelectedPlan(plan.id)}
+          >
+            {plan.popular && (
+              <div className={styles.popularBadge}>Most Popular</div>
+            )}
+            <div className={styles.planContent}>
+              <div className={styles.planLeft}>
+                <div
+                  className={`${styles.planRadio} ${
+                    selectedPlan === plan.id ? styles.planRadioSelected : ""
+                  }`}
+                />
+                <div>
+                  <div className={styles.planName}>{plan.name}</div>
+                  <div className={styles.planPrices}>
+                    <span className={styles.planOldPrice}>{plan.oldTotal}</span>{" "}
+                    {plan.newTotal}
+                  </div>
+                </div>
+              </div>
+              <div className={styles.planRight}>
+                <span className={styles.planOldDaily}>{plan.oldDaily}</span>
+                <span className={styles.planNewDaily}>{plan.newDaily}</span>
+                <span className={styles.planPerDay}>{plan.perDay}</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <p className={styles.datingTypeDesc}>{data.description}</p>
-        <div className={styles.datingTypeDivider} />
-        <div className={styles.datingTypeStat}>
-          <span className={styles.datingTypeStatLabel}>{data.statLabel}</span>
-          <span className={styles.datingTypeStatNum}>{data.statNumber}</span>
-          <span className={styles.datingTypeStatDesc}>{data.statDesc}</span>
-        </div>
+        ))}
       </div>
 
-      <div className={styles.datingTypeBottom}>
-        <p className={styles.datingTypeBottomTitle}>
-          Ready to figure out how good your{" "}
-          <span className={styles.highlight}>texting skills</span> are?
-        </p>
-        <p className={styles.datingTypeBottomSub}>
-          Get personalized <span className={styles.highlight}>feedback</span> on
-          your <span className={styles.highlight}>rizz</span>.
-        </p>
+      <button className={styles.ctaButton}>Get my personal Dating Assistant</button>
+
+      <div className={styles.paySecure}>
+        <span>✓ Pay safe &amp; secure</span>
+      </div>
+      <div className={styles.cardLogos}>
+        <span className={styles.cardLogo}>VISA</span>
+        <span className={styles.cardLogo}>MC</span>
+        <span className={styles.cardLogo}>VISA</span>
+        <span className={styles.cardLogo}>maestro</span>
       </div>
 
-      <button className={styles.ctaButton} onClick={onCTA}>
-        {data.cta}
-      </button>
-    </div>
+      <p className={styles.legalText}>
+        1 - month plan: You are enrolling in a 1 month plan subscription to Chatmen
+        service with the discount price $19.99. You agree that the plan you selected
+        will automatically be extended at the full price for successive renewal periods
+        and you will be charged $43.47 every 1 month until you cancel the subscription.
+      </p>
+    </>
   );
-}
-
-function ChallengeScreen({ data, onSubmit, onSkip }) {
-  const [message, setMessage] = useState("");
 
   return (
-    <div className={styles.challengeScreen}>
-      <h2 className={styles.challengeTitle}>
-        How would you <span className={styles.highlight}>open?</span>
-      </h2>
-      <p className={styles.challengeSub}>Challenge {data.challengeNum}</p>
-
-      <div className={styles.phoneMockup}>
-        <div className={styles.phoneStatusBar}>
-          <span>9:41</span>
-          <span className={styles.phoneNotch} />
-          <span>📶</span>
-        </div>
-        <div className={styles.profileHeader}>
-          <div>
-            <strong className={styles.profileName}>{data.profile.name}</strong>
-            <span className={styles.profileStatus}>
-              {" "}
-              · {data.profile.status}
-            </span>
-          </div>
-        </div>
-        <div className={styles.profilePronoun}>
-          {data.profile.pronouns} · ✓ Verified
-        </div>
-        <div className={styles.profileImgWrap}>
-          <Image
-            src={data.profile.img}
-            alt={data.profile.name}
-            width={300}
-            height={300}
-            className={styles.profileImg}
-          />
-        </div>
-        <div className={styles.profilePrompt}>
-          <span className={styles.promptLabel}>{data.profile.prompt}</span>
-          <p className={styles.promptAnswer}>{data.profile.answer}</p>
-        </div>
-      </div>
-
-      <div className={styles.challengeInputWrap}>
-        <span className={styles.challengeInputIcon}>💬</span>
-        <input
-          type="text"
-          placeholder="Type here..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          className={styles.challengeInput}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && message.trim()) onSubmit(message);
-          }}
+    <div className={styles.subPage}>
+      {/* Logo */}
+      <div className={styles.subLogo}>
+        <Image
+          src="/images/logo.png"
+          alt="Chatmen"
+          width={44}
+          height={44}
+          style={{ objectFit: "contain" }}
         />
-        <button
-          className={styles.challengeSendBtn}
-          onClick={() => message.trim() && onSubmit(message)}
-          disabled={!message.trim()}
-        >
-          ↑
-        </button>
+        <span className={styles.logoText}>
+          Chat<span className={styles.logoTextBrand}>men</span>
+        </span>
       </div>
-      <button className={styles.challengeSkip} onClick={onSkip}>
-        {data.skipText}
-      </button>
-    </div>
-  );
-}
 
-function AnalyzingScreen({ data }) {
-  return (
-    <div className={styles.analyzingScreen}>
-      <h2 className={styles.challengeTitle}>
-        How would you <span className={styles.highlight}>open?</span>
-      </h2>
-      <p className={styles.challengeSub}>Challenge {data.challengeNum}</p>
-
-      <div className={styles.analyzingCenter}>
-        <div className={styles.analyzingGlow}>
-          <div className={styles.analyzingRing3} />
-          <div className={styles.analyzingRing2} />
-          <div className={styles.analyzingRing1} />
-          <div className={styles.analyzingPhoto}>
+      {/* Now vs After comparison */}
+      <div className={styles.compareCard}>
+        <div className={styles.compareTabs}>
+          <span className={styles.compareTab}>Now</span>
+          <span className={styles.compareTab}>After</span>
+        </div>
+        <div className={styles.compareImages}>
+          <div className={styles.compareImgBefore}>
             <Image
-              src={data.profileImg}
-              alt="Profile"
-              width={160}
-              height={160}
-              className={styles.analyzingImg}
+              src="/images/figuring.webp"
+              alt="Now"
+              width={200}
+              height={200}
+              className={styles.compareImg}
             />
           </div>
-          <div className={styles.analyzingSparkle}>✦</div>
+          <div className={styles.compareArrow}>›</div>
+          <div className={styles.compareImgAfter}>
+            <Image
+              src="/images/casual.webp"
+              alt="After"
+              width={200}
+              height={200}
+              className={styles.compareImg}
+            />
+          </div>
+        </div>
+        <div className={styles.compareStats}>
+          <div className={styles.compareStat}>
+            <div className={styles.compareStatLabel}>Success probability:</div>
+            <div className={styles.compareStatBefore}>&gt; 30%</div>
+            <div className={styles.compareStatLabel}>Texting skills:</div>
+            <div className={styles.skillBars}>
+              <span className={styles.skillBar} style={{ background: "var(--primary-500)", width: "33%" }} />
+              <span className={styles.skillBar} style={{ background: "var(--border)", width: "33%" }} />
+              <span className={styles.skillBar} style={{ background: "var(--border)", width: "33%" }} />
+            </div>
+          </div>
+          <div className={styles.compareStat}>
+            <div className={styles.compareStatLabel}>Success probability:</div>
+            <div className={styles.compareStatAfter}>74 - 94%</div>
+            <div className={styles.compareStatLabel}>Texting skills:</div>
+            <div className={styles.skillBars}>
+              <span className={styles.skillBar} style={{ background: "var(--primary-500)", width: "33%" }} />
+              <span className={styles.skillBar} style={{ background: "var(--primary-500)", width: "33%" }} />
+              <span className={styles.skillBar} style={{ background: "var(--primary-500)", width: "33%" }} />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className={styles.analyzingBottom}>
-        <div className={styles.analyzingBubbleIcon}>💬</div>
-        <p className={styles.analyzingText}>{data.loadingText}</p>
-        <div className={styles.analyzingSpinner}>✳</div>
+      {/* AI Generated Summary */}
+      <div className={styles.aiSummary}>
+        <span className={styles.aiBadge}>AI generated</span>
+        <div className={styles.aiGrid}>
+          <div className={styles.aiGridItem}>
+            <span className={styles.aiGridIcon}>🎯</span>
+            <div>
+              <span className={styles.aiGridLabel}>Main goal</span>
+              <strong>{goalLabel}</strong>
+            </div>
+          </div>
+          <div className={styles.aiGridItem}>
+            <span className={styles.aiGridIcon}>🕐</span>
+            <div>
+              <span className={styles.aiGridLabel}>Daily learning</span>
+              <strong>&lt; 5 minutes/day</strong>
+            </div>
+          </div>
+          <div className={styles.aiGridItem}>
+            <span className={styles.aiGridIcon}>🏆</span>
+            <div>
+              <span className={styles.aiGridLabel}>Desired skills</span>
+              <strong>
+                {answers._checkboxLabels
+                  ? answers._checkboxLabels[0]
+                  : "Texting with confidence"}
+              </strong>
+            </div>
+          </div>
+          <div className={styles.aiGridItem}>
+            <span className={styles.aiGridIcon}>👤</span>
+            <div>
+              <span className={styles.aiGridLabel}>Your personality</span>
+              <strong>Extroverted</strong>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* First Pricing Section */}
+      <PricingSection />
+
+      {/* IT'S A MATCH */}
+      <div className={styles.matchSection}>
+        <p className={styles.matchIts}>IT&apos;S A</p>
+        <h2 className={styles.matchTitle}>MATCH!</h2>
+        <p className={styles.matchSub}>but what&apos;s next?</p>
+      </div>
+
+      {/* Features */}
+      <div className={styles.featureList}>
+        {features.map((f, i) => (
+          <div key={i} className={styles.featureItem}>
+            <span className={styles.featureCheck}>✓</span>
+            <span>{f}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Works with apps */}
+      <div className={styles.appsCard}>
+        <p>Works with all your favourite dating apps!</p>
+        <div className={styles.appIcons}>
+          {["T", "P", "ok", "🔥", "H", "💛", "👁", "m"].map((icon, i) => (
+            <span key={i} className={styles.appIcon}>
+              {icon}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.cheatCode}>
+        <p>
+          This &apos;cheat code&apos; will transform your online and real life
+          social interactions
+        </p>
+      </div>
+
+      {/* How it works */}
+      <div className={styles.howSection}>
+        <p className={styles.howLead}>Land 5.5x more dates using AI.</p>
+        <h2 className={styles.howTitle}>How does it work?</h2>
+        {howItWorks.map((item) => (
+          <div key={item.step} className={styles.howStep}>
+            <div className={styles.howStepNum}>{item.step}</div>
+            <p className={styles.howStepText}>{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Testimonial */}
+      <div className={styles.subTestimonial}>
+        <div className={styles.subTestimonialHeader}>
+          <div className={styles.subTestimonialAvatar}>B</div>
+          <div>
+            <strong>Ben</strong>
+            <div className={styles.subTestimonialLoc}>Toronto</div>
+            <div className={styles.reviewStars}>★★★★★</div>
+          </div>
+        </div>
+        <p className={styles.subTestimonialQuote}>
+          <strong>A game changer for faster messaging and playful flirting.</strong>
+        </p>
+        <p className={styles.subTestimonialText}>
+          Picks up on social cues, doesn&apos;t sound like a bot, and adjusts
+          for the situation and last text sent.
+        </p>
+      </div>
+
+      {/* Stats */}
+      <div className={styles.statsCard}>
+        <p>Our users already arranged</p>
+        <h3 className={styles.statsBig}>100,000+ dates</h3>
+      </div>
+
+      {/* FAQ */}
+      <div className={styles.faqSection}>
+        <h2 className={styles.faqTitle}>Frequently Asked Questions</h2>
+        {faqs.map((faq, i) => (
+          <div key={i} className={styles.faqItem}>
+            <button
+              className={styles.faqQuestion}
+              onClick={() => setOpenFaq(openFaq === i ? null : i)}
+            >
+              <span>{faq.q}</span>
+              <span
+                className={`${styles.faqChevron} ${
+                  openFaq === i ? styles.faqChevronOpen : ""
+                }`}
+              >
+                ▼
+              </span>
+            </button>
+            {openFaq === i && <p className={styles.faqAnswer}>{faq.a}</p>}
+          </div>
+        ))}
+      </div>
+
+      {/* Second Pricing Section */}
+      <PricingSection />
     </div>
   );
 }
@@ -1271,9 +1462,7 @@ export default function Home() {
         {currentQ.type !== "loading-plan" &&
           currentQ.type !== "journey" &&
           currentQ.type !== "email" &&
-          currentQ.type !== "dating-type" &&
-          currentQ.type !== "challenge" &&
-          currentQ.type !== "analyzing" && (
+          currentQ.type !== "subscription" && (
           <>
             <div className={styles.header}>
               {!isFirst && (
@@ -1419,23 +1608,8 @@ export default function Home() {
             />
           )}
 
-          {currentQ.type === "dating-type" && (
-            <DatingTypeScreen data={currentQ} onCTA={handleContinue} />
-          )}
-
-          {currentQ.type === "challenge" && (
-            <ChallengeScreen
-              data={currentQ}
-              onSubmit={(msg) => {
-                setAnswers({ ...answers, challenge_msg: msg });
-                handleContinue();
-              }}
-              onSkip={handleContinue}
-            />
-          )}
-
-          {currentQ.type === "analyzing" && (
-            <AnalyzingScreen data={currentQ} />
+          {currentQ.type === "subscription" && (
+            <SubscriptionPage answers={answers} questions={QUESTIONS} />
           )}
         </div>
 
