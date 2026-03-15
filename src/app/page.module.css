@@ -436,6 +436,12 @@
   color: var(--text-muted);
 }
 
+.beforeAfterImage {
+  width: 100%;
+  max-width: 500px;
+  margin: var(--space-md) auto var(--space-lg);
+}
+
 .beforeAfter {
   display: flex;
   gap: var(--space-lg);
@@ -568,7 +574,7 @@
 
 .likertScale {
   display: flex;
-  gap: 12px;
+  gap: 24px;
   justify-content: center;
   margin-bottom: var(--space-md);
 }
@@ -596,29 +602,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 80px;
+  height: 80px;
+  font-size: 36px;
   background: var(--surface-card);
   border: none;
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-card);
-}
-
-.likertIcon_sm {
-  width: 56px;
-  height: 56px;
-  font-size: 22px;
-}
-
-.likertIcon_md {
-  width: 64px;
-  height: 64px;
-  font-size: 26px;
-}
-
-.likertIcon_lg {
-  width: 64px;
-  height: 64px;
-  font-size: 28px;
 }
 
 .likertLabels {
@@ -1971,26 +1962,14 @@
     width: 140px;
   }
 
-  .likertIcon_sm {
-    width: 48px;
-    height: 48px;
-    font-size: 18px;
-  }
-
-  .likertIcon_md {
-    width: 54px;
-    height: 54px;
-    font-size: 22px;
-  }
-
-  .likertIcon_lg {
-    width: 54px;
-    height: 54px;
-    font-size: 24px;
+  .likertIcon {
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
   }
 
   .likertScale {
-    gap: 8px;
+    gap: 16px;
   }
 
   .batColumns {

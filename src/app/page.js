@@ -379,11 +379,9 @@ function getDisplayStep(stepIndex) {
 }
 
 const LIKERT_OPTIONS = [
-  { icon: "👎", size: "lg", label: "Completely disagree" },
-  { icon: "👎", size: "sm", label: "" },
-  { icon: "🤷", size: "md", label: "" },
-  { icon: "👍", size: "sm", label: "" },
-  { icon: "👍", size: "lg", label: "Completely agree" },
+  { icon: "👎", label: "Completely disagree" },
+  { icon: "🤷", label: "" },
+  { icon: "👍", label: "Completely agree" },
 ];
 
 /* =========================================
@@ -527,11 +525,7 @@ function LikertScale({ selected, onSelect }) {
             }`}
             onClick={() => onSelect(i)}
           >
-            <div
-              className={`${styles.likertIcon} ${
-                styles[`likertIcon_${opt.size}`]
-              }`}
-            >
+            <div className={styles.likertIcon}>
               {opt.icon}
             </div>
           </div>
@@ -1367,50 +1361,14 @@ function InfoScreen({ data }) {
         </div>
       </div>
 
-      <div className={styles.beforeAfter}>
-        <div className={styles.beforeAfterCol}>
-          <div className={`${styles.beforeAfterLabel} ${styles.labelBefore}`}>
-            Before ✗
-          </div>
-          <div className={styles.phonePreview}>
-            <div className={styles.notifItem}>
-              <div className={styles.notifDot} style={{ background: "#E94057" }} />
-              <div className={styles.notifText}>
-                <span className={styles.notifApp}>Tinder</span>
-                <span className={styles.notifMsg}>1 new message</span>
-              </div>
-            </div>
-            <div className={styles.notifItem}>
-              <div className={styles.notifDot} style={{ background: "#FFC629" }} />
-              <div className={styles.notifText}>
-                <span className={styles.notifApp}>Bumble</span>
-                <span className={styles.notifMsg}>1 new message</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.beforeAfterCol}>
-          <div className={`${styles.beforeAfterLabel} ${styles.labelAfter}`}>
-            After ✓
-          </div>
-          <div className={styles.phonePreview}>
-            {[
-              { app: "Tinder", count: 32, color: "#E94057" },
-              { app: "Bumble", count: 21, color: "#FFC629" },
-              { app: "Match", count: 16, color: "#6C63FF" },
-              { app: "Badoo", count: 13, color: "#783BF9" },
-              { app: "Hinge", count: 23, color: "#4A4A4A" },
-            ].map((n, i) => (
-              <div key={i} className={styles.notifItem}>
-                <div className={styles.notifDot} style={{ background: n.color }} />
-                <div className={styles.notifText}>
-                  <span className={styles.notifApp}>{n.app}</span>
-                  <span className={styles.notifMsg}>{n.count} new messages</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className={styles.beforeAfterImage}>
+        <Image
+          src="/images/right-place.png"
+          alt="Before and After comparison showing increased dating app messages"
+          width={960}
+          height={580}
+          style={{ width: "100%", height: "auto", borderRadius: "12px" }}
+        />
       </div>
     </div>
   );
